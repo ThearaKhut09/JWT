@@ -115,6 +115,128 @@ cd ..
 npm start
 ```
 
+## 🌱 Database Seeder
+
+The application includes a powerful database seeder for populating MongoDB with test users and managing user data during development.
+
+### 📋 Available Seeder Commands
+
+```bash
+# Add sample users to database
+npm run seed
+
+# Clear database and add fresh sample users
+npm run seed:fresh
+
+# List all users in database
+npm run users:list
+
+# Clear all users from database
+npm run users:clear
+
+# For development with nodemon
+npm run dev
+```
+
+### 🎯 Direct Seeder Commands
+
+```bash
+# Basic seeding (keeps existing users)
+node seeder.js seed
+
+# Seed with clearing existing users first
+node seeder.js seed --clear
+
+# Display all users in a beautiful table
+node seeder.js list
+
+# Remove all users from database
+node seeder.js clear
+
+# Reset database (clear + seed)
+node seeder.js reset
+
+# Show help and available commands
+node seeder.js
+```
+
+### 👥 Default Test Users
+
+The seeder creates these sample users automatically:
+
+| Name | Email | Password | Role |
+|------|-------|----------|------|
+| Admin User | admin@example.com | admin123 | admin |
+| John Doe | john@example.com | password123 | user |
+| Jane Smith | jane@example.com | password123 | user |
+| Mike Johnson | mike@example.com | password123 | user |
+| Sarah Wilson | sarah@example.com | password123 | moderator |
+
+### 🚀 Quick Start with Seeder
+
+```bash
+# 1. Ensure MongoDB is running
+# 2. Populate database with test users
+npm run seed:fresh
+
+# 3. View created users
+npm run users:list
+
+# 4. Start the application
+npm start
+
+# 5. Login with test credentials
+# Admin: admin@example.com / admin123
+# User: john@example.com / password123
+```
+
+### 🔧 Seeder Features
+
+- **🔐 Automatic password hashing** with bcryptjs
+- **👑 Role-based users** (admin, user, moderator)
+- **📊 Beautiful table output** for user listing
+- **🗑️ Safe database clearing** with confirmation
+- **⚡ Fast database population** for development
+- **🛡️ Error handling** for duplicate users
+- **📅 Timestamp tracking** (createdAt, updatedAt)
+
+### ⚠️ Seeder Usage Notes
+
+1. **MongoDB Required**: Ensure MongoDB is running before using seeder
+2. **Environment Setup**: Configure `.env` file with database URI
+3. **Development Tool**: Perfect for testing and development
+4. **Production Safety**: Use with caution in production environments
+5. **Data Persistence**: Use `--clear` flag to replace existing users
+
+### 📈 Advanced Seeder Usage
+
+#### Custom User Creation
+Modify the `sampleUsers` array in `seeder.js`:
+
+```javascript
+const sampleUsers = [
+  {
+    name: 'Custom Admin',
+    email: 'admin@yourcompany.com',
+    password: 'securepassword',
+    role: 'admin'
+  },
+  // Add more users...
+];
+```
+
+#### Integration with Development Workflow
+```bash
+# Development reset
+npm run users:clear && npm run seed && npm run dev
+
+# Quick user check
+npm run users:list
+
+# Fresh start
+npm run seed:fresh && npm start
+```
+
 ## 🚀 Usage
 
 ### 1. Register a new account
@@ -156,6 +278,13 @@ JWT/
 ├── middleware/
 │   └── authMiddleware.js       # JWT verification
 ├── models/
+│   └── User.js                # Enhanced user schema with roles
+├── routes/
+│   └── auth.js                # Authentication routes
+├── seeder.js                  # Database seeder for test users
+├── server.js                  # Express server
+├── package.json               # Server dependencies & scripts
+└── .env                       # Environment variables
 │   └── User.js                # User schema
 ├── routes/
 │   └── auth.js                # Authentication routes
@@ -299,6 +428,48 @@ JWT/
 ## 📄 License
 
 This project is licensed under the ISC License - see the package.json file for details.
+
+## 📚 Quick Reference
+
+### Essential Commands
+```bash
+# Server commands
+npm start                    # Start production server
+npm run dev                  # Start development server with nodemon
+
+# Database seeder commands
+npm run seed                 # Add sample users
+npm run seed:fresh          # Reset database with fresh users
+npm run users:list          # Display all users
+npm run users:clear         # Remove all users
+
+# Client commands (in client/ directory)
+npx react-scripts start    # Start React development server
+npm run build              # Build for production
+```
+
+### Default Test Accounts
+```bash
+# Admin access
+Email: admin@example.com
+Password: admin123
+
+# Regular user access
+Email: john@example.com
+Password: password123
+```
+
+### Development Workflow
+```bash
+# Quick start for development
+npm run seed:fresh && npm run dev
+
+# Check current users
+npm run users:list
+
+# Reset everything
+npm run users:clear && npm run seed && npm start
+```
 
 ## 🤝 Contributing
 
